@@ -1,0 +1,117 @@
+Estructuras de mi codigo 
+
+class Tarea:
+    def __init__(self, titulo, descripcion, fecha_vencimiento, prioridad):
+        self.titulo = titulo
+        self.descripcion = descripcion
+        self.fecha_vencimiento = fecha_vencimiento
+        self.prioridad = prioridad
+
+    def __str__(self):
+        return f"{self.titulo} - {self.descripcion} - {self.fecha_vencimiento} - {self.prioridad}"
+
+
+
+
+class Listatarea:
+    def __init__(self):
+        self.tareas = []
+
+    def agregar_tarea(self, tarea):
+        self.tareas.append(tarea)
+
+    def mostrar_tareas(self):
+        if not self.tareas:
+            print("No hay tareas en la lista.")
+        else:
+            for tarea in self.tareas:
+                print(tarea)
+
+    def eliminar_tarea(self, titulo):
+        for tarea in self.tareas:
+            if tarea.titulo == titulo:
+                self.tareas.remove(tarea)
+                print(f"Tarea '{titulo}' eliminada.")
+                return
+        print(f"No se encontró la tarea '{titulo}'.")
+
+    def modificar_tarea(self, titulo, nueva_descripcion, nueva_fecha, nueva_prioridad):
+        for tarea in self.tareas:
+            if tarea.titulo == titulo:
+                tarea.descripcion = nueva_descripcion
+                tarea.fecha_vencimiento = nueva_fecha
+                tarea.prioridad = nueva_prioridad
+                print(f"Tarea '{titulo}' modificada.")
+                return
+        print(f"No se encontró la tarea '{titulo}'.")
+
+    def filtrar_por_prioridad(self, prioridad):
+        tareas_filtradas = [tarea for tarea in self.tareas if tarea.prioridad == prioridad]
+        if not tareas_filtradas:
+            print(f"No hay tareas con prioridad '{prioridad}'.")
+        else:
+            print(f"Tareas con prioridad '{prioridad}':")
+            for tarea in tareas_filtradas:
+                print(tarea)
+
+
+
+from Tarea import Tarea
+from Listatarea import Listatarea
+
+
+def main():
+    lista_tarea = Listatarea()
+
+    while True:
+        print("\n----- Menú Principal -----")
+        print("1. Agregar Tarea")
+        print("2. Mostrar Tareas")
+        print("3. Eliminar Tarea")
+        print("4. Modificar Tarea")
+        print("5. Filtrar Tareas por Prioridad")
+        print("0. Salir")
+
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":
+            titulo = input("Ingrese el título de la tarea: ")
+            descripcion = input("Ingrese la descripción de la tarea: ")
+            fecha_vencimiento = input("Ingrese la fecha de vencimiento (YYYY-MM-DD): ")
+            prioridad = input("Ingrese la prioridad de la tarea: ")
+            
+            tarea_nueva = Tarea(titulo, descripcion, fecha_vencimiento, prioridad)
+            lista_tarea.agregar_tarea(tarea_nueva)
+            print("Tarea agregada exitosamente.")
+
+        elif opcion == "2":
+            print("\n----- Lista de Tareas -----")
+            lista_tarea.mostrar_tareas()
+
+        elif opcion == "3":
+            titulo_eliminar = input("Ingrese el título de la tarea a eliminar: ")
+            lista_tarea.eliminar_tarea(titulo_eliminar)
+
+        elif opcion == "4":
+            titulo_modificar = input("Ingrese el título de la tarea a modificar: ")
+            nueva_descripcion = input("Ingrese la nueva descripción de la tarea: ")
+            nueva_fecha = input("Ingrese la nueva fecha de vencimiento (YYYY-MM-DD): ")
+            nueva_prioridad = input("Ingrese la nueva prioridad de la tarea: ")
+            
+            lista_tarea.modificar_tarea(titulo_modificar, nueva_descripcion, nueva_fecha, nueva_prioridad)
+
+        elif opcion == "5":
+            prioridad_filtrar = input("Ingrese la prioridad para filtrar las tareas: ")
+            lista_tarea.filtrar_por_prioridad(prioridad_filtrar)
+
+        elif opcion == "0":
+            print("Saliendo del programa. ¡Hasta luego!")
+            break
+
+        else:
+            print("Opción no válida. Por favor, elija una opción válida.")
+
+if __name__ == "__main__":
+    main()
+
+
